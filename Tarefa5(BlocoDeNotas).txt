@@ -1,0 +1,165 @@
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+
+class Ordena_Busca
+{
+	public:
+		void BubbleSort(double *ptr, int num)
+		{
+			for(int k=0;k<num-1;k++)
+			{
+				for(int w=k+1;w<num;w++)
+				{
+					Ordena(ptr+k,ptr+w);
+				}
+			}
+			cout<<"  TABELA ORDENADA: "<<endl;
+			cout<<"POSICAO  |  VALOR"<<endl;
+			for(int c=0;c<num;c++)
+			{
+				cout<<"   ["<<c+1<<"]   |    "<<*(ptr+c)<<endl;
+			}
+		}
+
+		void Ordena (double *n1, double *n2)
+		{
+			if(*n1>*n2)
+			{
+				double aux=*n1;
+				*n1=*n2;
+				*n2=aux;
+			} 
+		}
+
+		void MaiorMenor(double *ponteiro, int num)
+		{
+			double maior, menor;
+			maior=*ponteiro;
+			menor=*ponteiro;
+			for(int q=1;q<num;q++)
+			{
+				if(*(ponteiro+q)>maior)
+				{
+					maior=*(ponteiro+q);
+				}
+				if(*(ponteiro+q)<menor)
+				{
+					menor=*(ponteiro+q);
+				}
+			}
+			cout<<"O maior elemento da tabela eh: "<<maior<<endl;
+			cout<<"O menor elemento da tabela eh: "<<menor<<endl;
+		}
+
+		void Moda(double *pont, int num)
+		{
+			int V2[num];
+			for(int a=0;a<num;a++)
+			{
+				V2[a]=0;
+			}
+			for(int h=0;h<num;h++)
+			{
+				for(int l=1;l<num;l++)
+				{
+					if(*(pont+h)==*(pont+l))
+					{
+						V2[h]=V2[h]+1;
+					}
+				}
+			}
+			int MaisRepeticoes=0;
+			int Chave;
+			for(int p=0;p<num;p++)
+			{
+				if(V2[p]>MaisRepeticoes)
+				{
+					MaisRepeticoes=V2[p];
+				}
+			}
+			for(int y=0;y<num;y++)
+			{
+				if(V2[y]==MaisRepeticoes)
+				{
+					Chave=(y);
+				}
+			}
+			cout<<"A moda da tabela eh: "<<*(pont+Chave)<<endl;
+		}
+
+		void BuscaSemParada(double *ptr2,double n, int num)
+		{
+			int C;
+			cout<<"      TABELA: "<<endl;
+			cout<<"POSICAO  |  VALOR"<<endl;
+			for(C=0;C<num;C++)
+			{
+				if (*(ptr2+C)==n)
+				{
+					cout<<"   ["<<C+1<<"]   |  O numero esta nessa posicao!!!"<<endl;
+				}
+				if (*(ptr2+C)!=n)
+				{
+					cout<<"   ["<<C+1<<"]   |  -----"<<endl;
+				}
+			}
+		}
+
+		void BuscaComParada(double *ptr2,double n,int num)
+		{
+			int C;
+			cout<<"      TABELA: "<<endl;
+			cout<<"POSICAO  |  VALOR"<<endl;
+			for(C=0;C<num;C++)
+			{
+				if (*(ptr2+C)==n)
+				{
+					cout<<"   ["<<C+1<<"]   |  O numero esta nessa posicao!!!"<<endl;
+					break;
+				}
+				if (*(ptr2+C)!=n)
+				{
+					cout<<"   ["<<C+1<<"]   |  -----"<<endl;
+				}
+			}
+		}
+};
+
+int main() 
+{
+	int num;
+	cout<<"Digite a quantidade total de valores para a sua tabela: "<<endl;
+	cin>>num;
+	double Tabela[num];
+	double n,n2,n3;
+	for(int j=0;j<num;j++)
+	{
+		cout<<"Digite o valor de "<<j+1<<" : "<<endl;
+		cin>>Tabela[j];
+	}
+	cout<<"  TABELA DIGITADA: "<<endl;
+	cout<<"POSICAO  |  VALOR"<<endl;
+	for(int i=0;i<num;i++)
+	{
+		cout<<"   "<<i+1<<"     |    "<<Tabela[i]<<endl;
+	}
+	cout<<"Digite o numero que deseja encontrar na tabela: "<<endl;
+	cin>>n;
+	Ordena_Busca TABELA;
+	TABELA.BuscaSemParada(Tabela,n, num);
+	cout<<"Digite outro numero que deseja encontrar na tabela"<<endl;
+	cout<<"Dessa vez, a tabela termina de ser impressa quando o numero for encontrado em sua primeira ocorrencia"<<endl;
+	cin>>n2;
+	TABELA.BuscaComParada(Tabela,n2,num);
+	cout<<endl;
+	TABELA.BubbleSort(Tabela, num);
+	cout<<"Digite um numero que deseja encontrar na tabela ordenada (busca binaria)"<<endl;
+	cin>>n3;
+	TABELA.BuscaSemParada(Tabela,n3,num);
+	TABELA.MaiorMenor(Tabela, num);
+	TABELA.Moda(Tabela,num);
+	system ("pause");
+	return 0;
+}
